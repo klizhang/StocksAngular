@@ -1,0 +1,42 @@
+<!-- modal header part -->
+<div class="modal-header">
+    <div class="modal-title" id="modal-basic-title">
+      <h1 class="m-0 mb-3">{{ ticker }}</h1>
+    </div>
+    <button
+      type="button"
+      id="close-btn"
+      class="close p-0 border-0 m-1"
+      aria-label="Close"
+      (click)="transModalService.close('Cross click')"
+    >
+      <span class="m-0 border-0" aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  
+  <!-- modal body part -->
+  <div class="modal-body">
+    <p>Current Price: {{ currentPrice | number: "1.2-2" }}</p>
+    <p>Money in wallet: ${{ wallet | number: "1.2-2" }} </p>
+    <p>Quantity <input [(ngModel)]="inputQuantity" type="number" min="0" /></p>
+    <p *ngIf="inputQuantity*currentPrice > wallet && opt === 'Buy'" class="text-danger">Not enough money in wallet!</p>
+    <p *ngIf="purchasedQuantity && inputQuantity > purchasedQuantity && opt ==='Sell'" class="text-danger">You cannot sell stocks that you don't have!</p>
+  </div>
+  
+  <!-- modal footer part -->
+  <div class="modal-footer">
+    <p class="me-auto">
+      Total : {{ inputQuantity * currentPrice | number: "1.2-2" }}
+    </p>
+    <button
+      type="button"
+      [disabled]="
+        !inputQuantity || (purchasedQuantity && inputQuantity > purchasedQuantity) || (inputQuantity*currentPrice > wallet && opt === 'Buy')
+      "
+      class="btn btn-outline-dark border-0 text-white bg-success border"
+      (click)="executeOpt()"
+    >
+      {{ opt }}
+    </button>
+  </div>
+  

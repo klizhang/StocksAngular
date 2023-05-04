@@ -1,0 +1,40 @@
+
+
+#logo{
+  width:120px;
+  height:120px;
+}
+
+#meta-ticker, .latest-last {
+    font-size: 40px;
+  }
+  
+  #meta-name, .change-latest {
+    font-size: 28px;
+  }
+  
+  #buy-button {
+    outline: none;
+    box-shadow: none;
+  }
+  
+  path.neg {
+    color: red;
+  }
+  
+  path.star-fill-icon {
+    color: rgb(255, 195, 0);
+  }
+  
+  path.pos {
+    color: green;
+  }
+  
+  .card-title {
+    line-height: 20px;
+    font-size: 15px;
+  }
+  
+  .gray-table{
+    background-color:lightgray;
+  }

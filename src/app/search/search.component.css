@@ -1,0 +1,41 @@
+h1 {
+    font-size: 40px;
+    line-height: 1.2;
+}
+
+#header-text {
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
+#group-outer {
+    border: 2px solid #1e20a1;
+    height: 100%;
+}
+
+
+input[type="text"] {
+    background:transparent;
+    outline: none;
+    box-shadow: none;
+    
+    outline: none;
+    border:none;
+    border-width:0px;
+    outline-width: 0;
+}
+
+form {
+    width: 450px;
+    height: auto;
+}
+
+div button {
+    outline: none;
+    box-shadow: none;
+}
+
+/* search icon color */
+path {
+    fill: #1e20a1;
+}

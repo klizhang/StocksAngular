@@ -1,0 +1,158 @@
+<ngb-alert
+  *ngIf="buySuccessMessage && currentTransaction === 'Buy'"
+  type="success"
+  class="text-center"
+  (close)="buySuccessMessage = ''"
+  >{{transactionTicker | uppercase}} bought successfully!</ngb-alert
+>
+
+<ngb-alert
+  *ngIf="buySuccessMessage && currentTransaction === 'Sell'"
+  type="danger"
+  class="text-center"
+  (close)="buySuccessMessage = ''"
+  > {{transactionTicker | uppercase}} sold successfully</ngb-alert
+>
+
+
+<div class="container p-0">
+  <h1 class="portfolio-header mt-5 mx-2"><b>My Portfolio</b></h1>
+  <h2 class="portfolio-header mt-0 mx-2">Money in wallet: ${{wallet | number: "1.2-2"}}</h2>
+</div>
+<div class="container my-0 p-0">
+  
+  <!-- empty portfolio alert area -->
+  <ngb-alert
+    [dismissible]="false"
+    *ngIf="isEmpty"
+    class="text-center text-dark mx-3"
+    >Currently you don't have any stock.
+  </ngb-alert>
+
+  <!-- purchased stock cards area -->
+  <div *ngIf="fetchFinish && !isEmpty">
+    <div *ngFor="let tickerItem of portfolioArr" class="card p-0 my-3 mx-2">
+      <div class="card-header py-3 px-3">
+          <span class="m-0 p-0" style="font-size:2em"><b>{{ tickerItem.ticker }}</b></span>
+          <span class="my-0 mx-2 p-0 text-secondary" style="font-size:1.7em">{{ tickerItem.name }}</span>
+      </div>
+      <div class="card-body py-2" style="font-size:1.5em">
+        <div class="card-text row m-0 my-2 px-0">
+          <!-- first column -->
+          <div class="col-sm p-0 m-0 mx-2">
+            <div class="row m-0 p-0" >
+              <div class="col m-0 p-0">Quantity:</div>
+              <div class="col m-0 p-0 text-end">
+                {{ tickerItem.quantity }}
+              </div>
+            </div>
+            <div class="row m-0 p-0">
+              <div class="col m-0 p-0">Avg. Cost/Share:</div>
+              <div class="col m-0 p-0 text-end">
+                {{ tickerItem.avgCost | number: "1.2-2" }}
+              </div>
+            </div>
+            <div class="row m-0 p-0">
+              <div class="col m-0 p-0">Total Cost:</div>
+              <div class="col m-0 p-0 text-end">
+                {{ tickerItem.totalCost | number: "1.2-2" }}
+              </div>
+            </div>
+          </div>
+          <!-- second column -->
+          <div class="col-sm p-0 m-0 mx-2">
+            <div class="row m-0 p-0">
+              <div class="col m-0 p-0">Change:</div>
+              <div
+                class="col m-0 p-0 text-end font-weight-bold"
+                [class.text-danger]="tickerItem.change < 0"
+                [class.text-success]="tickerItem.change > 0"
+              >
+                <svg
+                  *ngIf="tickerItem.change > 0"
+                  width="1em"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  class="bi bi-caret-up-fill"
+                  fill="green"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    class="pos"
+                    d="M7.247 4.86l-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"
+                  />
+                </svg>
+                <svg
+                  *ngIf="tickerItem.change < 0"
+                  width="1em"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  class="bi bi-caret-down-fill"
+                  fill="red"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    class="neg"
+                    d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"
+                  />
+                </svg>
+
+                {{ tickerItem.change | number: "1.2-2" }}
+              </div>
+            </div>
+            <div class="row m-0 p-0">
+              <div class="col m-0 p-0">Current Price:</div>
+              <div
+                class="col m-0 p-0 text-end font-weight-bold"
+                [class.text-danger]="tickerItem.change < 0"
+                [class.text-success]="tickerItem.change > 0"
+              >
+                {{ tickerItem.currentPrice | number: "1.2-2" }}
+              </div>
+            </div>
+            <div class="row m-0 p-0">
+              <div class="col m-0 p-0">Market Value:</div>
+              <div
+                class="col m-0 p-0 text-end font-weight-bold"
+                [class.text-danger]="tickerItem.change < 0"
+                [class.text-success]="tickerItem.change > 0"
+              >
+                {{ tickerItem.marketValue | number: "1.2-2" }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer py-1 d-flex justify-content-end">
+        <button
+          class="btn btn-primary mx-1 border-0"
+          (click)="
+            openTransaction(
+              tickerItem.ticker,
+              tickerItem.name,
+              tickerItem.currentPrice,
+              'Buy',
+              wallet
+            )
+          "
+        >
+          Buy
+        </button>
+        <button
+          class="btn btn-primary mx-1 bg-danger border-0"
+          (click)="
+            openTransaction(
+              tickerItem.ticker,
+              tickerItem.name,
+              tickerItem.currentPrice,
+              'Sell',
+              wallet
+            )
+          "
+        >
+          Sell
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

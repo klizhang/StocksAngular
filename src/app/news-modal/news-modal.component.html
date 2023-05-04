@@ -1,0 +1,57 @@
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+</head>
+
+<!-- modal header part -->
+<div class="modal-header">
+    <div class="modal-title" id="modal-basic-title">
+      <h1 class="m-0">{{ news.source }}</h1>
+      <div class="text-secondary">
+        {{ news.datetime*1000 | date: "longDate":"-0700" }}
+      </div>
+    </div>
+    <button type="button" class="close p-0 border-0 m-1" aria-label="Close" (click)="newsModalService.close()">
+      <span class="m-0 border-0" aria-hidden="true">&times;</span>
+    </button>
+    
+  </div>
+  <!-- modal body part -->
+  <div class="modal-body">
+    <h4>{{ news.headline }}</h4>
+    <p>{{ news.summary }}</p>
+    <p class="text-black-50">
+      For more details click
+      <a class="text-primary" href="{{news.url}}" target="_blank">here</a>
+    </p>
+    <div class="card m-2 mx-auto">
+      <div class="card-body">
+        <div class="row mx-1">Share</div>
+        <div class="row p-0 mx-1">
+          <!-- twitter share button -->
+          <a
+            class="col-auto"
+            href="https://twitter.com/intent/tweet?text={{ news.headline }}&url={{
+              news.url
+            }}"
+            target="_blank"
+            data-size="large"
+          >
+          <i class="fa fa-twitter fa-10x"></i>
+          </a>
+          
+          <!-- facebook share button -->
+          <div
+            class="col-auto"
+            data-href="https://developers.facebook.com/docs/plugins/"
+            data-layout="button"
+            data-size="large"
+          >
+            <a target="_blank" href="{{ fbSrc }}" class="fb-xfbml-parse-ignore"
+              ><i class="fa fa-facebook-square"></i></a>
+              
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
